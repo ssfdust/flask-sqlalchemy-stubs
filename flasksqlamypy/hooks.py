@@ -22,9 +22,7 @@ from .utils import (
 
 
 def declarative_base_hook(ctx: DynamicClassDefContext) -> None:
-    base_class = get_base_classes_from_arg(
-        ctx, "model_class", "flask_sqlalchemy.model.Model"
-    )
+    base_class = get_base_classes_from_arg(ctx, "model", "flask_sqlalchemy.model.Model")
     info = create_dynamic_class(
         ctx, base_class, metaclass="flask_sqlalchemy.model.DefaultMeta",
     )

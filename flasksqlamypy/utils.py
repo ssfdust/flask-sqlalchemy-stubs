@@ -228,8 +228,8 @@ def get_base_classes_from_arg(
     arg: Optional[Union[TypeInfo, Expression]] = None
     if arg_name in ctx.call.arg_names:
         arg = ctx.call.args[ctx.call.arg_names.index(arg_name)]
-    elif len(ctx.call.args) > 1:
-        arg = ctx.call.args[1]
+    elif len(ctx.call.args) > 0:
+        arg = ctx.call.args[0]
     else:
         arg = lookup_type_info(ctx.api, default_value)
 

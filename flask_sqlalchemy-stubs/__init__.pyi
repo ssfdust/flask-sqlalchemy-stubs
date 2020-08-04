@@ -165,6 +165,7 @@ class SQLAlchemy:
         engine_options: Union[Dict[str, str], Dict[str, type], None] = ...,
     ) -> None:
         # from sqlalchemy
+        self.session: SessionBase
         self.ARRAY = _sa.ARRAY
         self.BIGINT = _sa.BIGINT
         self.BINARY = _sa.BINARY
