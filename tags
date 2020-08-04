@@ -1,0 +1,99 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	0.0.0	/a3c87ab5/
+0	.vim/coc-settings.json	/^      "--ignore-missing-imports",$/;"	s	array:python.linting.mypyArgs
+1	.vim/coc-settings.json	/^      "--follow-imports=silent",$/;"	s	array:python.linting.mypyArgs
+2	.vim/coc-settings.json	/^      "--show-column-numbers"$/;"	s	array:python.linting.mypyArgs
+Address	examples/models.py	/^class Address(BaseModel):$/;"	c
+BaseModel	examples/ext.py	/^    BaseModel = db.make_declarative_base(Model)$/;"	v
+CB	flasksqlamypy/plugin.py	/^CB = Optional[Callable[[T], None]]$/;"	v
+CBT	flasksqlamypy/plugin.py	/^CBT = Optional[Callable[[T], U]]$/;"	v
+COLUMN_NAME	flasksqlamypy/names.py	/^COLUMN_NAME: Final = "sqlalchemy.sql.schema.Column"$/;"	v
+DECLARATIVE_BASE_NAME	flasksqlamypy/names.py	/^DECLARATIVE_BASE_NAME: Final = "flask_sqlalchemy.SQLAlchemy.make_declarative_base"$/;"	v
+FlaskSQLAlchemyPlugin	flasksqlamypy/plugin.py	/^class FlaskSQLAlchemyPlugin(Plugin):$/;"	c
+FullyQualifiedObject	flasksqlamypy/utils.py	/^class FullyQualifiedObject(Protocol):$/;"	c
+FullyQualifiedOrNoneObject	flasksqlamypy/utils.py	/^class FullyQualifiedOrNoneObject(Protocol):$/;"	c
+GINO_NAME	flasksqlamypy/names.py	/^GINO_NAME: Final = "flask_sqlalchemy.SQLAlchemy"$/;"	v
+GROUPING_NAME	flasksqlamypy/names.py	/^GROUPING_NAME: Final = "sqlalchemy.sql.elements.Grouping"$/;"	v
+RELATIONSHIP_NAME	flasksqlamypy/names.py	/^RELATIONSHIP_NAME: Final = "sqlalchemy.orm.relationships.RelationshipProperty"$/;"	v
+T	flasksqlamypy/plugin.py	/^T = TypeVar("T")$/;"	v
+U	flasksqlamypy/plugin.py	/^U = TypeVar("U")$/;"	v
+User	examples/models.py	/^class User(BaseModel):$/;"	c
+__is_declarative	flasksqlamypy/plugin.py	/^    def __is_declarative(self, fullname: str) -> bool:$/;"	m	class:FlaskSQLAlchemyPlugin	file:
+__tablename__	examples/models.py	/^    __tablename__ = "address"$/;"	v	class:Address	file:
+__tablename__	examples/models.py	/^    __tablename__ = "users"$/;"	v	class:User	file:
+__version__	flasksqlamypy/__init__.py	/^__version__: Final[str] = "0.0.1"$/;"	v
+_get_model_hook	flasksqlamypy/plugin.py	/^    def _get_model_hook(self, fullname: str) -> CBT[FunctionContext, Type]:$/;"	m	class:FlaskSQLAlchemyPlugin
+add_init_to_cls	flasksqlamypy/utils.py	/^def add_init_to_cls(ctx: ClassDefContext) -> None:$/;"	f
+add_metadata	flasksqlamypy/utils.py	/^def add_metadata(ctx: DynamicClassDefContext, info: TypeInfo) -> None:$/;"	f
+add_metadata_var	flasksqlamypy/utils.py	/^def add_metadata_var(api: SemanticAnalyzerPluginInterface, info: TypeInfo) -> None:$/;"	f
+add_query_cls_var	flasksqlamypy/utils.py	/^def add_query_cls_var(api: SemanticAnalyzerPluginInterface, info: TypeInfo) -> None:$/;"	f
+add_query_to_cls	flasksqlamypy/utils.py	/^def add_query_to_cls(ctx: ClassDefContext) -> None:$/;"	f
+add_table_to_cls	flasksqlamypy/utils.py	/^def add_table_to_cls(ctx: ClassDefContext) -> None:$/;"	f
+add_var_to_class	flasksqlamypy/utils.py	/^def add_var_to_class(info: TypeInfo, name: str, typ: Type) -> None:$/;"	f
+addopts	pytest.ini	/^addopts = -nauto --mypy-ini-file=test\/ginomypy.ini$/;"	k	section:pytest
+address	examples/models.py	/^    address = db.relationship($/;"	v	class:User
+app	examples/app.py	/^app = Flask(__name__)$/;"	v
+check_model_values	flasksqlamypy/utils.py	/^def check_model_values($/;"	f
+create_db_instance_hook	flasksqlamypy/hooks.py	/^def create_db_instance_hook(ctx: DynamicClassDefContext) -> None:$/;"	f
+create_dynamic_class	flasksqlamypy/utils.py	/^def create_dynamic_class($/;"	f
+crud_model_values_hook	flasksqlamypy/hooks.py	/^def crud_model_values_hook(ctx: MethodContext) -> Type:$/;"	f
+db	examples/ext.py	/^db = SQLAlchemy()$/;"	v
+declarative_base_hook	flasksqlamypy/hooks.py	/^def declarative_base_hook(ctx: DynamicClassDefContext) -> None:$/;"	f
+get_additional_deps	flasksqlamypy/plugin.py	/^    def get_additional_deps(self, file: MypyFile) -> List[Tuple[int, str, int]]:$/;"	m	class:FlaskSQLAlchemyPlugin
+get_argument_by_name	flasksqlamypy/utils.py	/^def get_argument_by_name(ctx: FunctionContext, name: str) -> Optional[Expression]:$/;"	f
+get_base_class_hook	flasksqlamypy/plugin.py	/^    def get_base_class_hook(self, fullname: str) -> CB[ClassDefContext]:$/;"	m	class:FlaskSQLAlchemyPlugin
+get_base_classes_from_arg	flasksqlamypy/utils.py	/^def get_base_classes_from_arg($/;"	f
+get_dynamic_class_hook	flasksqlamypy/plugin.py	/^    def get_dynamic_class_hook(self, fullname: str) -> CB[DynamicClassDefContext]:$/;"	m	class:FlaskSQLAlchemyPlugin
+get_expected_model_types	flasksqlamypy/utils.py	/^def get_expected_model_types(model: TypeInfo) -> Dict[str, Type]:$/;"	f
+get_fullname	flasksqlamypy/utils.py	/^def get_fullname(x: Union[FuncBase, SymbolNode]) -> str:$/;"	f
+get_function_hook	flasksqlamypy/plugin.py	/^    def get_function_hook(self, fullname: str) -> CBT[FunctionContext, Type]:$/;"	m	class:FlaskSQLAlchemyPlugin
+get_method_hook	flasksqlamypy/plugin.py	/^    def get_method_hook(self, fullname: str) -> CBT[MethodContext, Type]:$/;"	m	class:FlaskSQLAlchemyPlugin
+get_model_from_ctx	flasksqlamypy/utils.py	/^def get_model_from_ctx(ctx: Union[FunctionContext, MethodContext]) -> TypeInfo:$/;"	f
+get_query_class_from_base	flasksqlamypy/utils.py	/^def get_query_class_from_base(ctx: ClassDefContext) -> Optional[Instance]:$/;"	f
+get_shortname	flasksqlamypy/utils.py	/^def get_shortname(x: Union[FuncBase, SymbolNode]) -> str:$/;"	f
+id	examples/models.py	/^    id = db.Column(db.Integer, primary_key=True)$/;"	v	class:Address
+id	examples/models.py	/^    id = db.Column(db.Integer, primary_key=True)$/;"	v	class:User
+ignore_missing_imports	examples/mypy.ini	/^ignore_missing_imports = True$/;"	k	section:mypy-sqlmypy
+ignore_missing_imports	mypy.ini	/^ignore_missing_imports = True$/;"	k	section:mypy-sqlmypy
+importlib_metadata	flasksqlamypy/__init__.py	/^from importlib import metadata as importlib_metadata$/;"	x
+incremental	examples/mypy.ini	/^incremental = True$/;"	k	section:mypy
+incremental	mypy.ini	/^incremental = True$/;"	k	section:mypy
+index	examples/app.py	/^def index() -> str:$/;"	f
+is_declarative	flasksqlamypy/utils.py	/^def is_declarative(info: TypeInfo) -> bool:$/;"	f
+is_patched	flasksqlamypy/utils.py	/^def is_patched(info: TypeInfo, key: str) -> bool:$/;"	f
+lookup_fully_qualified	flasksqlamypy/utils.py	/^    def lookup_fully_qualified(self, __name: str) -> Optional[SymbolTableNode]:$/;"	m	class:FullyQualifiedObject
+lookup_fully_qualified_or_none	flasksqlamypy/utils.py	/^    def lookup_fully_qualified_or_none(self, __name: str) -> Optional[SymbolTableNode]:$/;"	m	class:FullyQualifiedOrNoneObject
+lookup_type_info	flasksqlamypy/utils.py	/^def lookup_type_info($/;"	f
+model_base_class_hook	flasksqlamypy/hooks.py	/^def model_base_class_hook(ctx: ClassDefContext) -> None:$/;"	f
+model_init_hook	flasksqlamypy/hooks.py	/^def model_init_hook(ctx: Union[FunctionContext, MethodContext]) -> Type:$/;"	f
+mypy	examples/mypy.ini	/^[mypy]$/;"	s
+mypy	mypy.ini	/^[mypy]$/;"	s
+mypy-sqlmypy	examples/mypy.ini	/^[mypy-sqlmypy]$/;"	s
+mypy-sqlmypy	mypy.ini	/^[mypy-sqlmypy]$/;"	s
+name	examples/models.py	/^    name = db.Column(db.String)$/;"	v	class:Address
+name	examples/models.py	/^    name = db.Column(db.String)$/;"	v	class:User
+plugin	flasksqlamypy/__init__.py	/^def plugin(version: str) -> Type[Plugin]:$/;"	f
+plugins	examples/mypy.ini	/^plugins = flasksqlamypy$/;"	k	section:mypy
+plugins	mypy.ini	/^plugins = flasksqlamypy$/;"	k	section:mypy
+pytest	pytest.ini	/^[pytest]$/;"	s
+python.jediEnabled	.vim/coc-settings.json	/^  "python.jediEnabled": false,$/;"	b
+python.linting.enabled	.vim/coc-settings.json	/^  "python.linting.enabled": true,$/;"	b
+python.linting.flake8Enabled	.vim/coc-settings.json	/^  "python.linting.flake8Enabled": true,$/;"	b
+python.linting.mypyArgs	.vim/coc-settings.json	/^  "python.linting.mypyArgs": [$/;"	a
+python.linting.mypyEnabled	.vim/coc-settings.json	/^  "python.linting.mypyEnabled": true,$/;"	b
+python.linting.mypyPath	.vim/coc-settings.json	/^  "python.linting.mypyPath": "\/Development\/.cache\/virtualenv\/smorest-sfs\/bin\/mypy",$/;"	s
+python.linting.pylintEnabled	.vim/coc-settings.json	/^  "python.linting.pylintEnabled": false,$/;"	b
+python.pythonPath	.vim/coc-settings.json	/^  "python.pythonPath": "\/Development\/.cache\/virtualenv\/smorest-sfs\/bin\/python",$/;"	s
+set_base_cls	flasksqlamypy/utils.py	/^def set_base_cls(ctx: DynamicClassDefContext, **kwargs: Instance) -> None:$/;"	f
+set_declarative	flasksqlamypy/utils.py	/^def set_declarative(info: TypeInfo) -> None:$/;"	f
+set_patched	flasksqlamypy/utils.py	/^def set_patched(info: TypeInfo) -> None:$/;"	f
+strict	mypy.ini	/^strict = True$/;"	k	section:mypy
+test_version	tests/test_flask_sqlalchemy_stubs.py	/^def test_version():$/;"	f
+testpaths	pytest.ini	/^testpaths = test$/;"	k	section:pytest
+uid	examples/models.py	/^    uid = db.Column(db.Integer)$/;"	v	class:Address

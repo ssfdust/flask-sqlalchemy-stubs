@@ -1,0 +1,31 @@
+[tool.poetry]
+name = "flask-sqlalchemy-stubs"
+version = "0.0.1"
+description = "Stubs for flask-sqlalchemy"
+authors = ["ssfdust <ssfdust@gmail.com>"]
+readme = "README.rst"
+license = "MIT"
+packages = [
+    {include = "flasksqlamypy"}
+]
+include = [
+	"flask_sqlalchemy-stubs/**/*.pyi",
+	"flasksqlamypy/py.typed"
+]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+flask-sqlalchemy = "^2.4.4"
+mypy = "^0.782"
+sqlalchemy-stubs = "^0.3"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+pylint = "^2.4.4"
+pytest-cov = "^2.8.1"
+pytest-mypy-plugins = "^1.2.1"
+py = "^1.8.1"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
