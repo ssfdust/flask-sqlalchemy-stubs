@@ -1,7 +1,8 @@
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, TypeVar, Type
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.orm.query import Query
 
-db = SQLAlchemy()
+db = SQLAlchemy(query_class=Query)
 
 if TYPE_CHECKING:
     from flask_sqlalchemy.model import Model

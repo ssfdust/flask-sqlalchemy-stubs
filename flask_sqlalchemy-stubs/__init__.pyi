@@ -3,7 +3,7 @@ from flask.app import Flask
 from flask_sqlalchemy.model import DefaultMeta, Model as BaseModel
 from mypy_extensions import NoReturn as NoReturn
 import sqlalchemy as _sa
-from sqlalchemy import orm
+from sqlalchemy.orm.query import Query
 from sqlalchemy.engine.default import DefaultExecutionContext
 from sqlalchemy.engine.base import Connection, Engine
 from sqlalchemy.engine.url import URL
@@ -14,9 +14,10 @@ from sqlalchemy.orm.session import Session as SessionBase, sessionmaker
 from sqlalchemy.sql.schema import MetaData, Table
 from sqlalchemy.sql.selectable import Select
 from sqlite3 import Cursor
-from typing import Any, Callable, Dict, Iterator, List, Optional, Tuple, Union, TypeVar
+from typing import Any, Callable, Dict, Iterator, List, Optional, Tuple, Union, TypeVar, Protocol, Type
 
-_Q = TypeVar('_Q')
+_M = TypeVar("_M")
+_T = TypeVar('_T')
 
 models_committed: Any
 before_models_committed: Any
@@ -121,9 +122,9 @@ class Pagination:
         right_edge: int = ...,
     ) -> Iterator[int]: ...
 
-class BaseQuery(orm.Query[_Q]):
-    def get_or_404(self: _Q, ident: int, description: Optional[str] = ...) -> _Q: ...
-    def first_or_404(self: _Q, description: Optional[str] = ...) -> _Q: ...
+class BaseQuery(Query[_M]):
+    def get_or_404(self, ident: int, description: Optional[str] = ...) -> _M: ...
+    def first_or_404(self, description: Optional[str] = ...) -> _M: ...
     def paginate(
         self,
         page: Optional[int] = ...,
@@ -286,8 +287,8 @@ class SQLAlchemy:
     ) -> scoped_session: ...
     def create_session(self, options: Dict[str, type]) -> sessionmaker: ...
     def make_declarative_base(
-        self, model: type, metadata: Optional[Any] = ...
-    ): ...
+        self, model: _T, metadata: Optional[Any] = ...
+    ) -> _T: ...
     def init_app(self, app: Flask) -> None: ...
     def apply_pool_defaults(self, app: Flask, options: Dict[Any, Any]) -> None: ...
     def apply_driver_hacks(

@@ -136,9 +136,15 @@ def add_metadata_var(api: SemanticAnalyzerPluginInterface, info: TypeInfo) -> No
 
 def add_query_cls_var(api: SemanticAnalyzerPluginInterface, info: TypeInfo) -> None:
     sym = lookup_type_info(api, "flask_sqlalchemy.SQLAlchemy")
-    if sym:
-        typ = sym.metadata["flask_sqla"]["query_class"]
-        add_var_to_class(info, "query_class", TypeType(typ))
+    assert sym is not None
+    for base in info.bases:
+        if "query_class" in base.type.names:
+            query_class = base.type.names["query_class"].type
+            break
+    else:
+        query_class = TypeType(sym.metadata["flask_sqla"]["query_class"])
+    assert query_class is not None
+    add_var_to_class(info, "query_class", query_class)
 
 
 def add_metadata(ctx: DynamicClassDefContext, info: TypeInfo) -> None:
@@ -221,15 +227,15 @@ def get_expected_model_types(model: TypeInfo) -> Dict[str, Type]:
 
 
 def get_base_classes_from_arg(
-    ctx: DynamicClassDefContext, arg_name: str, default_value: str
+    ctx: DynamicClassDefContext, arg_name: str, default_value: str, arg_names: List[str]
 ) -> List[Instance]:
     base_classes: List[Instance] = []
 
     arg: Optional[Union[TypeInfo, Expression]] = None
     if arg_name in ctx.call.arg_names:
         arg = ctx.call.args[ctx.call.arg_names.index(arg_name)]
-    elif len(ctx.call.args) > 0:
-        arg = ctx.call.args[0]
+    elif len(ctx.call.args) > arg_names.index(arg_name):
+        arg = ctx.call.args[arg_names.index(arg_name)]
     else:
         arg = lookup_type_info(ctx.api, default_value)
 

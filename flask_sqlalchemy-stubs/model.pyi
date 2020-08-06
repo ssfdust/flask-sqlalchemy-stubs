@@ -1,12 +1,12 @@
 from ._compat import to_str as to_str
 from re import Match as Match
 from sqlalchemy.ext.declarative import DeclarativeMeta
+from sqlalchemy.orm import Query
 from typing import Any
 from typing import ClassVar, TypeVar, Generic, Type
 from . import BaseQuery
 
-_Q = TypeVar('_Q', bound=BaseQuery)
-_M = TypeVar('_M')
+_M = TypeVar('_M', bound="Model")
 
 def should_set_tablename(cls: Any) -> bool: ...
 
@@ -24,5 +24,5 @@ class BindMetaMixin:
 class DefaultMeta(NameMetaMixin, BindMetaMixin, DeclarativeMeta): ...
 
 class Model:
-    query_class: ClassVar[Type[BaseQuery[_Q]]] = ...
-    query: ClassVar[BaseQuery[_M]] = ...
+    query_class: ClassVar[Type[BaseQuery[_M]]] = ...
+    query: ClassVar[BaseQuery[_M]]

@@ -20,9 +20,21 @@ from .utils import (
     set_declarative,
 )
 
+db_arg_names = [
+    "app",
+    "use_native_unicode",
+    "session_options",
+    "metadata",
+    "query_class",
+    "model_class",
+    "engine_options",
+]
+
 
 def declarative_base_hook(ctx: DynamicClassDefContext) -> None:
-    base_class = get_base_classes_from_arg(ctx, "model", "flask_sqlalchemy.model.Model")
+    base_class = get_base_classes_from_arg(
+        ctx, "model", "flask_sqlalchemy.model.Model", ["model"]
+    )
     info = create_dynamic_class(
         ctx, base_class, metaclass="flask_sqlalchemy.model.DefaultMeta",
     )
@@ -47,10 +59,10 @@ def model_init_hook(ctx: Union[FunctionContext, MethodContext]) -> Type:
 
 def create_db_instance_hook(ctx: DynamicClassDefContext) -> None:
     model_class = get_base_classes_from_arg(
-        ctx, "model_class", "flask_sqlalchemy.model.Model"
+        ctx, "model_class", "flask_sqlalchemy.model.Model", db_arg_names
     )[0]
     query_class = get_base_classes_from_arg(
-        ctx, "query_class", "flask_sqlalchemy.BaseQuery"
+        ctx, "query_class", "flask_sqlalchemy.BaseQuery", db_arg_names
     )[0]
     set_base_cls(ctx, model_class=model_class, query_class=query_class)
 
