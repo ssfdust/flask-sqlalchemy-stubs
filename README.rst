@@ -41,3 +41,9 @@ Install
 ::
 
   pip install git+https://github.com/ssfdust/flask-sqlalchemy-stubs.git 
+
+Jedi Completion Tricks
+----------------
+
+You can define a classmethod with `self` typed, which makes jedi completion to
+work. Please check examples/sample.py for the entire example.
