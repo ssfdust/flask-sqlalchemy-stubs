@@ -1,4 +1,8 @@
-from typing_extensions import Final
+try:
+    from typing_extensions import Final as FinalType
+    Final = FinalType[str]
+except ImportError:
+    Final = str
 
 COLUMN_NAME: Final = "sqlalchemy.sql.schema.Column"
 GROUPING_NAME: Final = "sqlalchemy.sql.elements.Grouping"
