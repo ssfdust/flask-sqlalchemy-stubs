@@ -134,12 +134,18 @@ def add_metadata_var(api: SemanticAnalyzerPluginInterface, info: TypeInfo) -> No
     add_var_to_class(info, "metadata", typ)
 
 
+def get_type_or_from_alias(node: SymbolTableNode) -> TypeInfo:
+    if node.type is None:
+        return TypeType(node.node.target)
+    return node.type
+
+
 def add_query_cls_var(api: SemanticAnalyzerPluginInterface, info: TypeInfo) -> None:
     sym = lookup_type_info(api, "flask_sqlalchemy.SQLAlchemy")
     assert sym is not None
     for base in info.bases:
         if "query_class" in base.type.names:
-            query_class = base.type.names["query_class"].type
+            query_class = get_type_or_from_alias(base.type.names["query_class"])
             break
     else:
         query_class = TypeType(sym.metadata["flask_sqla"]["query_class"])
@@ -318,7 +324,7 @@ def add_init_to_cls(ctx: ClassDefContext) -> None:
             variable=var, type_annotation=anytype, initializer=None, kind=ARG_STAR2
         )
         add_method(ctx, "__init__", [kw_arg], NoneTyp())
-        set_declarative(ctx.cls.info)
+    set_declarative(ctx.cls.info)
 
 
 def add_query_to_cls(ctx: ClassDefContext) -> None:
