@@ -4,8 +4,6 @@
   "python.linting.flake8Enabled": true,
   "python.linting.enabled": true,
   "python.linting.mypyEnabled": true,
-  "python.pythonPath": "/Development/.cache/virtualenv/smorest-sfs/bin/python",
-  "python.linting.mypyPath": "/Development/.cache/virtualenv/smorest-sfs/bin/mypy",
   "python.linting.mypyArgs": [
       "--ignore-missing-imports",
       "--follow-imports=silent",

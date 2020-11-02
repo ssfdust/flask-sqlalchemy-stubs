@@ -310,7 +310,7 @@ def get_argument_by_name(ctx: FunctionContext, name: str) -> Optional[Expression
 def get_query_class_from_base(ctx: ClassDefContext) -> Optional[Instance]:
     typ = None
     for expr in ctx.cls.base_type_exprs:
-        if "query_class" in expr.node.names:  # type: ignore
+        if isinstance(expr.node, TypeInfo) and "query_class" in expr.node.names:  # type: ignore
             typ = expr.node.names["query_class"]  # type: ignore
             break
     return typ.type.item if typ else None
