@@ -1,0 +1,21 @@
+- case: test_declarative_instantiation
+  main: |
+    from typing import TYPE_CHECKING, TypeVar, Type
+    from flask_sqlalchemy import SQLAlchemy
+    from datetime import datetime
+    db = SQLAlchemy()
+    if TYPE_CHECKING:
+        from flask_sqlalchemy.model import Model
+        BaseModel = db.make_declarative_base(Model)
+    else:
+        BaseModel = db.Model
+    class User(BaseModel):
+        __tablename__ = 'model'
+        id = db.Column(db.Integer(), primary_key=True)
+        name = db.Column(db.String(), nullable=False)
+        created_at = db.Column(db.DateTime())
+    model1 = User(id=0, name='John Doe', created_at=datetime.now())
+    model2 = User(id=1, name=None, created_at=datetime.now())  # E: Incompatible type for argument "name" (got "None", expected "str")
+    model3 = User(id=None, name='John Doe', created_at=None)  # E: Incompatible type for argument "id" (got "None", expected "int")
+    model4 = User(id='2', name='John Doe')  # E: Incompatible type for argument "id" (got "str", expected "int")
+    model5 = User(id=3, first_name='John')  # E: Unexpected argument "first_name"

@@ -1,0 +1,37 @@
+- case: test_stubless_inherit
+  main: |
+    from typing import TYPE_CHECKING, TypeVar, Type
+    from flask_sqlalchemy import SQLAlchemy
+
+    db = SQLAlchemy()
+
+    if TYPE_CHECKING:
+        from flask_sqlalchemy.model import Model
+        BaseModel = db.make_declarative_base(Model)
+    else:
+        BaseModel = db.Model
+
+    class MethodMixin:
+        def somemethod(self):
+            pass
+
+    class AttrMixin:
+        someattr = db.Column(db.String)
+
+    class UserMethod(MethodMixin, BaseModel):  # type: ignore
+        id = db.Column(db.Integer, primary_key=True)
+        name = db.Column(db.String)
+
+    class UserAttr(AttrMixin, BaseModel):  # type: ignore
+        id = db.Column(db.Integer, primary_key=True)
+
+    user = UserMethod(name="user")
+
+    reveal_type(user)  # N: Revealed type is 'main.UserMethod'
+    reveal_type(user.id)  # N: Revealed type is 'builtins.int*'
+    reveal_type(user.name)  # N: Revealed type is 'Union[builtins.str*, None]'
+
+    user_ = UserAttr()
+
+    reveal_type(user_)  # N: Revealed type is 'main.UserAttr'
+    reveal_type(user.id)  # N: Revealed type is 'builtins.int*'

@@ -6,8 +6,6 @@ from typing import Any
 from typing import ClassVar, TypeVar, Generic, Type
 from . import BaseQuery
 
-_M = TypeVar('_M', bound="Model")
-
 def should_set_tablename(cls: Any) -> bool: ...
 
 camelcase_re: Any
@@ -24,5 +22,5 @@ class BindMetaMixin:
 class DefaultMeta(NameMetaMixin, BindMetaMixin, DeclarativeMeta): ...
 
 class Model:
-    query_class: ClassVar[Type[BaseQuery[_M]]] = ...
-    query: ClassVar[BaseQuery[_M]]
+    query_class: ClassVar[Type[BaseQuery[Model]]] = ...
+    query: ClassVar[BaseQuery[Model]]

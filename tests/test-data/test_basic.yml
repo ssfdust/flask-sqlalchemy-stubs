@@ -1,0 +1,48 @@
+- case: test_create
+  main: |
+    from typing import TYPE_CHECKING, TypeVar, Type
+    from flask_sqlalchemy import SQLAlchemy
+
+    db = SQLAlchemy()
+
+    if TYPE_CHECKING:
+        from flask_sqlalchemy.model import Model
+        BaseModel = db.make_declarative_base(Model)
+    else:
+        BaseModel = db.Model
+
+    class User(BaseModel):  # type: ignore
+        __tablename__ = "users"
+        id = db.Column(db.Integer, primary_key=True)
+        name = db.Column(db.String)
+
+    user = User(name="user")
+
+    reveal_type(user)  # N: Revealed type is 'main.User'
+    reveal_type(user.id)  # N: Revealed type is 'builtins.int*'
+    reveal_type(user.name)  # N: Revealed type is 'Union[builtins.str*, None]'
+
+- case: test_retrive
+  main: |
+    from typing import TYPE_CHECKING, TypeVar, Type
+    from flask_sqlalchemy import SQLAlchemy
+
+    db = SQLAlchemy()
+
+    if TYPE_CHECKING:
+        from flask_sqlalchemy.model import Model
+        BaseModel = db.make_declarative_base(Model)
+    else:
+        BaseModel = db.Model
+
+    class User(BaseModel):
+        __tablename__ = "users"
+        id = db.Column(db.Integer, primary_key=True)
+        name = db.Column(db.String)
+
+    item = User.query.get(1)
+    reveal_type(item)  # N: Revealed type is 'Union[main.User*, None]'
+    one = User.query.filter_by(id=1).one()
+    reveal_type(one)  # N: Revealed type is 'main.User*'
+    items = User.query.all()
+    reveal_type(items)  # N: Revealed type is 'builtins.list[main.User*]'

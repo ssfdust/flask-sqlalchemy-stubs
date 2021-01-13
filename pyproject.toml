@@ -17,15 +17,14 @@ include = [
 python = "^3.6"
 flask-sqlalchemy = "^2.4.4"
 mypy = "^0.790"
-sqlalchemy-stubs = "^0.3"
+sqlalchemy-stubs = "^0.4"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^3.8.4"
-pytest = "^5.2"
+pytest = "^6.2.1"
 pytest-cov = "^2.8.1"
 pytest-mypy-plugins = "^1.2.1"
 py = "^1.8.1"
-Flask-Login = "^0.5.0"
 isort = "^5.6.4"
 pdbpp = "^0.10.2"
 jedi = "^0.17.2"

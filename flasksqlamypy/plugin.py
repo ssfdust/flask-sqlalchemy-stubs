@@ -60,7 +60,7 @@ class FlaskSQLAlchemyPlugin(Plugin):
         return None
 
     def get_dynamic_class_hook(self, fullname: str) -> CB[DynamicClassDefContext]:
-        if fullname.endswith(".make_declarative_base"):
+        if fullname.endswith("make_declarative_base"):
             return declarative_base_hook
         if fullname == "flask_sqlalchemy.SQLAlchemy":
             return create_db_instance_hook
