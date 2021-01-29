@@ -3,7 +3,7 @@ Mypy plugin and stubs for Flask-SQLAlchemy
 
 Please check example directory.
 
-*Important*: you need to enable the plugin in your mypy config file
+*Important*: you need to enable the plugin in your mypy config file, **and pycharm doesn't support mypy plugin.**
 
 ::
 
