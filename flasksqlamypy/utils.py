@@ -88,8 +88,7 @@ def set_declarative(info: TypeInfo) -> None:
 
 
 def set_base_cls(ctx: DynamicClassDefContext, **kwargs: Instance) -> None:
-    info = lookup_type_info(ctx.api, "flask_sqlalchemy.SQLAlchemy")
-    if info:
+    if info := lookup_type_info(ctx.api, "flask_sqlalchemy.SQLAlchemy"):
         info.metadata.setdefault("flask_sqla", dict(**kwargs))
 
 
@@ -118,15 +117,16 @@ def lookup_type_info(
 def add_var_to_class(info: TypeInfo, name: str, typ: Type) -> None:
     var = Var(name)
     var.info = info
-    var._fullname = get_fullname(info) + "." + name
+    var._fullname = f'{get_fullname(info)}.{name}'
     var.type = typ
     info.names[name] = SymbolTableNode(MDEF, var)
 
 
 def add_metadata_var(api: SemanticAnalyzerPluginInterface, info: TypeInfo) -> None:
     """Add .metadata attribute to a declarative base."""
-    sym = api.lookup_fully_qualified_or_none("sqlalchemy.sql.schema.MetaData")
-    if sym:
+    if sym := api.lookup_fully_qualified_or_none(
+        "sqlalchemy.sql.schema.MetaData"
+    ):
         assert isinstance(sym.node, TypeInfo)
         typ = Instance(sym.node, [])  # type: Type
     else:
@@ -135,9 +135,7 @@ def add_metadata_var(api: SemanticAnalyzerPluginInterface, info: TypeInfo) -> No
 
 
 def get_type_or_from_alias(node: SymbolTableNode) -> TypeInfo:
-    if node.type is None:
-        return TypeType(node.node.target)
-    return node.type
+    return TypeType(node.node.target) if node.type is None else node.type
 
 
 def add_query_cls_var(api: SemanticAnalyzerPluginInterface, info: TypeInfo) -> None:
@@ -246,11 +244,7 @@ def get_base_classes_from_arg(
         arg = lookup_type_info(ctx.api, default_value)
 
     if arg is not None:
-        if isinstance(arg, TupleExpr):
-            items: List[Union[Expression, TypeInfo]] = [item for item in arg.items]
-        else:
-            items = [arg]
-
+        items = list(arg.items) if isinstance(arg, TupleExpr) else [arg]
         for item in items:
             base: Optional[Union[Instance, TupleType]] = None
             if isinstance(item, RefExpr) and isinstance(item.node, TypeInfo):
@@ -308,11 +302,16 @@ def get_argument_by_name(ctx: FunctionContext, name: str) -> Optional[Expression
 
 
 def get_query_class_from_base(ctx: ClassDefContext) -> Optional[Instance]:
-    typ = None
-    for expr in ctx.cls.base_type_exprs:
-        if isinstance(expr.node, TypeInfo) and "query_class" in expr.node.names:  # type: ignore
-            typ = expr.node.names["query_class"]  # type: ignore
-            break
+    typ = next(
+        (
+            expr.node.names["query_class"]
+            for expr in ctx.cls.base_type_exprs
+            if isinstance(expr.node, TypeInfo)
+            and "query_class" in expr.node.names
+        ),
+        None,
+    )
+
     return typ.type.item if typ else None
 
 
@@ -329,16 +328,15 @@ def add_init_to_cls(ctx: ClassDefContext) -> None:
 
 def add_query_to_cls(ctx: ClassDefContext) -> None:
     model_type = ctx.api.named_type_or_none(ctx.cls.fullname)  # type: ignore
-    query_type = get_query_class_from_base(ctx)
-    if query_type:
+    if query_type := get_query_class_from_base(ctx):
         query_type = query_type.copy_modified(args=[model_type])
         add_var_to_class(ctx.cls.info, "query", query_type)
 
 
 def add_table_to_cls(ctx: ClassDefContext) -> None:
-    table = ctx.api.lookup_fully_qualified_or_none("sqlalchemy.sql.schema.Table")
-
-    if table:
+    if table := ctx.api.lookup_fully_qualified_or_none(
+        "sqlalchemy.sql.schema.Table"
+    ):
         assert isinstance(table.node, TypeInfo)
         table_type: Type = Instance(table.node, [])
     else:

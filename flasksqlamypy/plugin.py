@@ -33,10 +33,8 @@ CBT = Optional[Callable[[T], U]]
 class FlaskSQLAlchemyPlugin(Plugin):
     def __is_declarative(self, fullname: str) -> bool:
         info = self.lookup_fully_qualified(fullname)
-        if info and isinstance(info.node, TypeInfo):
-            # May be a model instantiation
-            if is_declarative(info.node):
-                return True
+        if info and isinstance(info.node, TypeInfo) and is_declarative(info.node):
+            return True
 
         return False
 
@@ -68,13 +66,7 @@ class FlaskSQLAlchemyPlugin(Plugin):
         return None
 
     def get_base_class_hook(self, fullname: str) -> CB[ClassDefContext]:
-        if self.__is_declarative(fullname):
-            return model_base_class_hook
-
-        return None
+        return model_base_class_hook if self.__is_declarative(fullname) else None
 
     def get_additional_deps(self, file: MypyFile) -> List[Tuple[int, str, int]]:
-        if get_fullname(file) == "gino.api":
-            return [(10, "gino.crud", -1)]
-
-        return []
+        return [(10, "gino.crud", -1)] if get_fullname(file) == "gino.api" else []
